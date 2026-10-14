@@ -1,62 +1,148 @@
-# 📊 Business Analytics - Enterprise Conversational Data & Text-to-SQL Platform
+# 📊 Business Analytics Platform
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Architecture-Text--to--SQL-6366f1.svg" alt="Architecture" />
-  <img src="https://img.shields.io/badge/UI-Precision%20SaaS%20(Linear%20Inspired)-10b981.svg" alt="UI Style" />
+> Enterprise Conversational Business Intelligence & Semantic Text-to-SQL Analytics Platform.  
+> Inspired by modern clean architecture standards and high-density enterprise SaaS solutions.
+
+<p align="left">
+  <a href="https://github.com/thienlotus/business-analytics-platform/actions"><img src="https://img.shields.io/badge/CI-Passing-10b981.svg" alt="CI Status" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
+  <img src="https://img.shields.io/badge/Architecture-Clean%20Separation-6366f1.svg" alt="Clean Architecture" />
   <img src="https://img.shields.io/badge/Database-SQLite%20Relational-06b6d4.svg" alt="Database" />
-  <img src="https://img.shields.io/badge/Visualization-Chart.js-f59e0b.svg" alt="Visualization" />
-  <img src="https://img.shields.io/badge/Container-Docker%20Ready-2496ED.svg" alt="Docker" />
-  <img src="https://img.shields.io/badge/Author-Le%20Vu%20Thien-blue.svg" alt="Author" />
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED.svg" alt="Docker" />
+  <img src="https://img.shields.io/badge/Author-Le%20Vu%20Thien-f59e0b.svg" alt="Author" />
 </p>
 
 ---
 
-## 📌 Giới Thiệu Dự Án (Executive Summary)
+## 📑 Table of Contents
 
-**Business Analytics** là nền tảng Trợ lý Phân tích Dữ liệu Kinh doanh Thông minh (**Conversational Business Intelligence**) chuẩn doanh nghiệp, cho phép các cấp quản lý và nhân sự vận hành đặt câu hỏi bằng **ngôn ngữ tự nhiên tiếng Việt hoặc tiếng Anh** để trích xuất số liệu, tự động sinh câu lệnh SQL chuẩn xác và trực quan hóa thành biểu đồ tương tác thời gian thực.
-
-Dự án được nghiên cứu và thiết kế dựa trên tiêu chuẩn kiến trúc phần mềm B2B SaaS quốc tế (tham khảo từ các giải pháp hàng đầu như **Defog, Vanna AI, Metabase Copilot, Supabase và Linear**).
-
----
-
-## ⚡ Các Tính Năng Nổi Bật (Core Capabilities)
-
-### 1. Công Nghệ Text-to-SQL Ngữ Nghĩa (Semantic Text-to-SQL)
-* Tự động hiểu và phân loại ý định kinh doanh (Business Intent Classification):
-  * **Xu hướng tăng trưởng:** Doanh thu theo tháng, theo quý, so sánh cùng kỳ.
-  * **Hiệu quả danh mục:** Xếp hạng Top sản phẩm bán chạy, sản phẩm đem lại doanh số cao nhất.
-  * **Phân tích địa lý:** Phân bổ doanh số theo tỉnh thành (Hà Nội, TP.HCM, Đà Nẵng, Cần Thơ...).
-  * **Phân hạng khách hàng (CLV):** Phân tích nhóm khách VIP, Loyal, Regular để đánh giá giá trị vòng đời.
-  * **Thanh toán & Vận hành:** Tỷ trọng cổng thanh toán không tiền mặt (VNPay, Thẻ) vs COD, tỷ lệ hoàn trả/hủy đơn.
-
-### 2. Trực Quan Hóa Tự Động & Thích Ứng (Adaptive Visualization Engine)
-* Tự động lựa chọn loại biểu đồ tối ưu dựa trên bản chất dữ liệu:
-  * 📈 **Line Chart:** Thể hiện xu hướng chuỗi thời gian (Time-series trend).
-  * 📊 **Bar Chart:** Xếp hạng danh mục, so sánh mức độ chênh lệch.
-  * 🍩 **Doughnut Chart:** Biểu diễn cơ cấu tỷ trọng phần trăm.
-  * 📋 **Interactive Data Table:** Xem bảng số liệu chi tiết, hỗ trợ định dạng tiền tệ và kiểm tra dòng.
-
-### 3. Công Cụ Kỹ Thuật Chuyên Sâu (Technical Tooling)
-* **SQL Inspector & Playground:** Cho phép xem câu lệnh SQL sinh ra, sao chép 1-click hoặc tự viết truy vấn tùy biến chạy trực tiếp trên database.
-* **Schema Inspector:** Khảo sát trực quan cấu trúc 5 bảng quan hệ và các khóa ngoại.
-* **Xuất dữ liệu 1-click:** Hỗ trợ trích xuất báo cáo ra định dạng file **CSV** phục vụ phân tích chuyên sâu.
+- [Overview](#-overview)
+- [Architecture & Design](#-architecture--design)
+- [Project Structure](#-project-structure)
+- [Key Features](#-key-features)
+- [Getting Started](#-getting-started)
+  - [Option 1: Direct Browser Run (Zero Config)](#option-1-direct-browser-run-zero-config)
+  - [Option 2: Run via Python Backend](#option-2-run-via-python-backend)
+  - [Option 3: Run via Docker Compose](#option-3-run-via-docker-compose)
+- [Database Schema](#-database-schema)
+- [Learning & Interview Guide](#-learning--interview-guide)
+- [Tech Stack](#-tech-stack)
+- [Author & License](#-author--license)
 
 ---
 
-## 🎨 Triết Lý Thiết Kế Giao Diện (Design Philosophy)
+## 📌 Overview
 
-* **Phong cách:** Precision Enterprise Tech (Lấy cảm hứng từ Linear.app, Vercel, Supabase).
-* **Đường nét:** Sử dụng bo góc tinh tế, sắc sảo (**Subtle Radius 4px - 6px**), tuyệt đối không dùng bo tròn mềm dạng "AI bong bóng" (soft pill blobs) đại trà.
-* **Màu sắc:** Nền tối Obsidian (`#09090b`), thẻ bề mặt Elevated Card (`#18181b`), viền vi mô 1px (`#27272a`), điểm xuyết màu tín hiệu Indigo (`#6366f1`), Emerald (`#10b981`), Cyan (`#06b6d4`).
-* **Hiệu ứng:** Micro-interactions mượt mà, chuyển đổi nhịp nhàng giữa các chế độ biểu đồ và bảng dữ liệu.
+**Business Analytics Platform** is a conversational analytics tool built for business decision-makers. It enables stakeholders to ask business questions in natural language (Vietnamese/English), automatically translates those questions into optimized SQL queries, executes them against an enterprise relational database, and dynamically renders interactive multi-dimensional visualizations.
 
 ---
 
-## 🗄️ Cấu Trúc Cơ Sở Dữ Liệu (Database Schema)
+## 🏛️ Architecture & Design
 
-Hệ thống tích hợp sẵn cơ sở dữ liệu mẫu thực tế của ngành Bán lẻ & E-commerce tại Việt Nam gồm **5 bảng quan hệ**:
+The platform emphasizes a clean separation of concerns, dividing the solution into independent **Frontend (SPA)**, **Backend (REST & Database)**, and **Deployment Orchestration** layers.
 
+```mermaid
+graph TD
+    User([Business Stakeholder]) -->|Natural Language Prompt| SPA[Frontend SPA]
+    
+    subgraph "src/frontend (Client Layer)"
+        SPA --> NLP[Semantic Intent Classifier]
+        NLP --> SQLGen[Text-to-SQL Generator]
+        SQLGen --> InMemDB[In-Memory Query Engine]
+        InMemDB --> Viz[Adaptive Visualizer - Chart.js]
+    end
+
+    subgraph "src/backend (Server Layer)"
+        PyServer[Python Server & REST API] --> SQLite[(Relational SQLite Database)]
+        SchemaSQL[schema.sql Seed Data] --> SQLite
+    end
+
+    subgraph "deploy (Infrastructure)"
+        Docker[Dockerfile & Docker Compose]
+        CIWorkflow[.github/workflows/ci.yml]
+    end
 ```
+
+> 📖 **Read the full design specification:** [docs/architecture.md](docs/architecture.md)
+
+---
+
+## 📂 Project Structure
+
+```text
+business-analytics-platform/
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # Automated Continuous Integration (CI)
+├── deploy/
+│   ├── Dockerfile               # Production Docker container
+│   └── docker-compose.yml       # Container orchestration
+├── docs/
+│   ├── architecture.md          # In-depth architectural design specification
+│   └── ai-learning-guide.md     # Comprehensive Text-to-SQL study & interview guide
+├── src/
+│   ├── backend/                 # Python backend service & relational database
+│   │   ├── server.py            # HTTP API server & static host
+│   │   ├── schema.sql           # 5-table schema definition & realistic seed dataset
+│   │   └── requirements.txt     # Backend runtime dependencies
+│   └── frontend/                # Enterprise Single Page Application
+│       ├── index.html           # High-density, clutter-free dashboard workspace
+│       ├── css/
+│       │   └── style.css        # Precision design tokens (subtle 4px-6px radius)
+│       └── js/
+│           ├── app.js           # UI state controller, chart lifecycle & exports
+│           ├── database.js      # Relational query processor & schema metadata
+│           └── text_to_sql.js   # Semantic NLP parser & Explainable AI engine
+├── .env.example                 # Environment configuration template
+├── .gitignore                   # Strict build & cache hygiene
+├── LICENSE                      # MIT Open Source License
+└── README.md                    # Root project documentation
+```
+
+---
+
+## ✨ Key Features
+
+- **Semantic Text-to-SQL Engine:** Converts conversational queries into verified, read-only SQL queries with zero latency.
+- **Adaptive Visualizations:** Dynamically switches between Line Charts (trends), Bar Charts (comparisons), Doughnut Charts (shares), and Data Tables.
+- **Precision Enterprise UI:** Subtle 4px - 6px sharp radius, dark high-contrast obsidian palette, and zero visual clutter.
+- **SQL Inspector & Playground:** View auto-generated queries, copy with 1-click, or execute custom ad-hoc SQL queries directly.
+- **Schema Inspector:** Interactive schema browser mapping 5 relational tables and foreign key relationships.
+- **1-Click CSV Export:** Export filtered data sets into UTF-8 CSV reports for downstream analysis.
+
+---
+
+## 🚀 Getting Started
+
+### Option 1: Direct Browser Run (Zero Config)
+Because the platform includes a standalone client-side relational engine, you can run it immediately without starting any server:
+```bash
+git clone https://github.com/thienlotus/business-analytics-platform.git
+cd business-analytics-platform
+# Open src/frontend/index.html in any browser (Chrome, Edge, Firefox, Brave)
+```
+
+### Option 2: Run via Python Backend
+```bash
+git clone https://github.com/thienlotus/business-analytics-platform.git
+cd business-analytics-platform
+python src/backend/server.py
+```
+Open your browser and navigate to: **`http://localhost:8080`**.
+
+### Option 3: Run via Docker Compose
+```bash
+cd deploy
+docker-compose up --build -d
+```
+
+---
+
+## 🗄️ Database Schema
+
+The system includes a realistic Vietnamese E-commerce dataset with 5 interrelated tables:
+
+```text
 [ categories ] ──(1:N)──► [ products ] ──(1:N)──► [ order_items ]
                                                         │
                                                        (N:1)
@@ -64,48 +150,35 @@ Hệ thống tích hợp sẵn cơ sở dữ liệu mẫu thực tế của ngà
 [ customers ] ────────────(1:N)──────────────► [ orders ]
 ```
 
-1. **`categories`**: Danh mục ngành hàng (Điện thoại, Laptop, Âm thanh, Smartwatch, Smart Home).
-2. **`products`**: Thông tin sản phẩm, giá vốn đầu vào, giá bán niêm yết, tồn kho và đánh giá rating.
-3. **`customers`**: Hồ sơ khách hàng, phân hạng thành viên (VIP, Loyal, Regular, New) và địa bàn cư trú.
-4. **`orders`**: Thông tin đơn hàng, tổng tiền, chiết khấu, phương thức thanh toán và trạng thái giao hàng.
-5. **`order_items`**: Chi tiết từng mã hàng, số lượng và thành tiền trong đơn.
+1. **`categories`**: Product classifications (Smartphones, Laptops, Audio, Smartwatches, Smart Home).
+2. **`products`**: Unit costs, selling prices, stock inventory, and customer ratings.
+3. **`customers`**: Profiles, tiers (VIP, Loyal, Regular, New), and regional metadata.
+4. **`orders`**: Timestamps, gross amounts, discounts, net revenue, payment gateways, and delivery statuses.
+5. **`order_items`**: Line items, quantities, and line subtotals.
 
 ---
 
-## 📚 Tài Liệu Học Tập Đi Kèm (Learning Guide)
-Dự án đi kèm tài liệu học tập chuyên sâu: **[AI_ARCHITECTURE_GUIDE.md](AI_ARCHITECTURE_GUIDE.md)**  
-Bao gồm:
-* Chi tiết quy trình 4 bước chuyển đổi từ ngôn ngữ tự nhiên sang SQL.
-* Cấu trúc lược đồ và giải thích nghiệp vụ.
-* **Bộ 3 câu hỏi phỏng vấn thực chiến** chuyên gia về Text-to-SQL và câu trả lời mẫu ghi điểm tối đa với nhà tuyển dụng.
+## 📖 Learning & Interview Guide
+
+A dedicated engineering guide is included for candidates and developers preparing for technical interviews:  
+👉 **[docs/ai-learning-guide.md](docs/ai-learning-guide.md)**
+
+Topics covered:
+* The 4-stage pipeline from natural language to SQL.
+* Guardrails and security considerations for conversational analytics.
+* Top 3 technical interview questions with model answers.
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt & Khởi Chạy (Quickstart)
+## 🛠️ Tech Stack
 
-### Cách 1: Chạy Trực Tiếp Bằng Trình Duyệt (Zero Configuration)
-1. Clone repository về máy:
-   ```bash
-   git clone https://github.com/thienlotus/NexusBI.git
-   cd NexusBI
-   ```
-2. Mở trực tiếp file `index.html` bằng bất kỳ trình duyệt nào (Chrome, Edge, Firefox, Brave) là sử dụng được ngay lập tức!
-
-### Cách 2: Khởi Chạy Bằng Python Backend
-```bash
-python server.py
-```
-Truy cập hệ thống tại: `http://localhost:8080`.
-
-### Cách 3: Triển Khai Qua Docker
-```bash
-docker-compose up --build -d
-```
+* **Frontend:** Vanilla HTML5, High-performance CSS3, Modern ES6+ JavaScript, Chart.js, Lucide Icons.
+* **Backend:** Python 3.11, SQLite3, RESTful APIs.
+* **DevOps / CI/CD:** Docker, Docker Compose, GitHub Actions.
 
 ---
 
-## 👨‍💻 Tác Giả & Bản Quyền (Author & Credits)
+## 👨‍💻 Author & License
 
-* **Lê Vũ Thiên (thienlotus)** - *Lead Full-Stack & AI Engineer*
-  * GitHub: [@thienlotus](https://github.com/thienlotus)
-  * Vai trò: Thiết kế kiến trúc tổng thể, xây dựng Semantic Text-to-SQL Engine, phát triển giao diện người dùng và tối ưu hóa hệ thống cơ sở dữ liệu.
+Developed with ❤️ by **Lê Vũ Thiên (@thienlotus)**.  
+Released under the [MIT License](LICENSE).

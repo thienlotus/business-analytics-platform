@@ -1,9 +1,11 @@
 version: '3.8'
 
 services:
-  nexus-bi:
-    build: .
-    container_name: nexus_bi_app
+  analytics-platform:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: business_analytics_app
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -11,7 +13,7 @@ services:
       - PORT=8080
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
     volumes:
-      - ./data:/app/data
+      - ../data:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
       interval: 30s
