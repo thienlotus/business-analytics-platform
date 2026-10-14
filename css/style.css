@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NexusBI Enterprise Design System
+   Enterprise Business Analytics - Design System
    Aesthetic: Precision Enterprise SaaS (Linear / Supabase / Datadog inspired)
    Constraint: Subtle sharp radius (4px - 6px), high data-density, smooth micro-interactions
    Author: Le Vu Thien (thienlotus)
@@ -104,15 +104,15 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
 }
 
 .logo-text {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.4px;
     color: #fff;
 }
 
@@ -462,55 +462,10 @@ body {
     color: var(--text-secondary);
 }
 
-/* Thinking Accordion */
-.thinking-box {
-    background-color: rgba(9, 9, 11, 0.6);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 14px 20px;
-}
-
-.thinking-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent-indigo);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.thinking-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.step-item {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 8px 10px;
-}
-
-.step-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-}
-
-.step-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
 /* Visualization Canvas */
 .viz-container {
     padding: 24px;
-    min-height: 340px;
+    height: 400px;
     position: relative;
 }
 
@@ -546,6 +501,8 @@ body {
     background-color: #0d0d10;
     padding: 16px 20px;
     position: relative;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .sql-code {
@@ -577,7 +534,7 @@ body {
 /* Data Table */
 .table-responsive {
     overflow-x: auto;
-    max-height: 380px;
+    max-height: 400px;
 }
 
 .nexus-table {
@@ -652,7 +609,7 @@ body {
 }
 
 .modal-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: #fff;
 }
@@ -680,9 +637,6 @@ body {
         display: none;
     }
     .kpi-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .thinking-steps {
         grid-template-columns: repeat(2, 1fr);
     }
 }

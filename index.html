@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusBI - Enterprise Conversational Business Intelligence & Text-to-SQL Platform</title>
-    <meta name="description" content="Trợ lý phân tích dữ liệu kinh doanh bằng ngôn ngữ tự nhiên (Text-to-SQL) kết hợp trực quan hóa đa chiều cho doanh nghiệp.">
+    <title>Business Analytics - Enterprise Conversational Data Platform</title>
+    <meta name="description" content="Nền tảng phân tích dữ liệu kinh doanh thông minh bằng ngôn ngữ tự nhiên (Text-to-SQL) kết hợp trực quan hóa thời gian thực.">
     
     <!-- Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +25,10 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo-badge">N</div>
+                <div class="logo-badge">BI</div>
                 <div>
-                    <div class="logo-text">NexusBI</div>
-                    <div class="logo-sub">Enterprise Analytics</div>
+                    <div class="logo-text">Business Analytics</div>
+                    <div class="logo-sub">Enterprise Platform</div>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
             <div class="sidebar-footer">
                 <div class="db-status-badge">
                     <span class="status-dot"></span>
-                    <span>SQLite In-Memory Connected (5 tables)</span>
+                    <span>Production SQLite (5 tables connected)</span>
                 </div>
             </div>
         </aside>
@@ -87,17 +87,17 @@
             <!-- Top Navigation Bar -->
             <header class="top-navbar">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="font-weight: 600; font-size: 14px; color: #fff;">Bảng Điều Khiển Kinh Doanh 2026</span>
-                    <span class="meta-badge">v2.4 Enterprise</span>
+                    <span style="font-weight: 600; font-size: 14px; color: #fff;">Bảng Điều Khiển Kinh Doanh Thực Tế</span>
+                    <span class="meta-badge">Enterprise Edition</span>
                 </div>
                 <div class="nav-actions">
                     <button class="btn btn-default btn-sm" id="btn-refresh-kpis">
                         <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i>
-                        <span>Làm mới dữ liệu</span>
+                        <span>Làm mới số liệu</span>
                     </button>
-                    <button class="btn btn-primary btn-sm" id="btn-export-full-report">
+                    <button class="btn btn-primary btn-sm" id="btn-export-csv-top">
                         <i data-lucide="download" style="width: 14px; height: 14px;"></i>
-                        <span>Xuất Báo Cáo</span>
+                        <span>Xuất Dữ Liệu Báo Cáo</span>
                     </button>
                 </div>
             </header>
@@ -112,12 +112,12 @@
                             <i data-lucide="dollar-sign" style="width: 16px; height: 16px; color: var(--accent-emerald);"></i>
                         </div>
                         <div class="kpi-value" id="kpi-revenue">308.2M ₫</div>
-                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +18.4% so với quý trước</span>
+                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +18.4% so với kỳ trước</span>
                     </div>
 
                     <div class="kpi-card">
                         <div class="kpi-title">
-                            <span>TỔNG SỐ ĐƠN PHÁT SINH</span>
+                            <span>TỔNG SỐ ĐƠN HÀNG</span>
                             <i data-lucide="shopping-cart" style="width: 16px; height: 16px; color: var(--accent-indigo);"></i>
                         </div>
                         <div class="kpi-value" id="kpi-orders">15 đơn</div>
@@ -130,7 +130,7 @@
                             <i data-lucide="bar-chart-2" style="width: 16px; height: 16px; color: var(--accent-cyan);"></i>
                         </div>
                         <div class="kpi-value" id="kpi-aov">25.6M ₫</div>
-                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +5.8% phân khúc cao cấp</span>
+                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> Phân khúc giá trị cao</span>
                     </div>
 
                     <div class="kpi-card">
@@ -149,7 +149,7 @@
                         <div class="command-icon">
                             <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
                         </div>
-                        <input type="text" id="nl-query-input" class="command-input" placeholder="Nhập câu hỏi phân tích bằng tiếng Việt tự nhiên... (ví dụ: 'Cho tôi xem top sản phẩm bán chạy nhất')" autocomplete="off">
+                        <input type="text" id="nl-query-input" class="command-input" placeholder="Gõ câu hỏi phân tích bằng tiếng Việt hoặc tiếng Anh (ví dụ: 'Cho tôi xem top sản phẩm bán chạy nhất')..." autocomplete="off">
                         <span class="command-shortcut">Enter ↵</span>
                         <button class="btn btn-primary" id="btn-run-query">
                             <span>Phân Tích</span>
@@ -159,7 +159,7 @@
 
                 <!-- Quick Query Suggestion Pills -->
                 <section class="quick-pills">
-                    <span style="font-size: 12px; color: var(--text-muted); align-self: center; margin-right: 4px;">Gợi ý câu hỏi:</span>
+                    <span style="font-size: 12px; color: var(--text-muted); align-self: center; margin-right: 4px;">Truy vấn nhanh:</span>
                     <button class="quick-pill" data-query="Cho tôi xem doanh thu theo tháng">📈 Doanh thu theo tháng</button>
                     <button class="quick-pill" data-query="Top 5 sản phẩm bán chạy nhất">🏆 Top sản phẩm bán chạy</button>
                     <button class="quick-pill" data-query="Phân bổ doanh thu theo tỉnh thành và khu vực">🗺️ Doanh thu theo vùng miền</button>
@@ -168,13 +168,13 @@
                     <button class="quick-pill" data-query="Tỷ lệ đơn hàng hoàn thành và đổi trả">📦 Tỷ lệ đổi trả đơn hàng</button>
                 </section>
 
-                <!-- Dynamic Query Result Card -->
+                <!-- Clean Enterprise Analytics Card -->
                 <section class="result-card" id="query-result-card">
                     <div class="result-header">
                         <div class="result-title-group">
                             <span id="card-chart-title" class="result-query-text">Doanh Thu Theo Tháng & Xu Hướng Tăng Trưởng</span>
-                            <span class="meta-badge" id="card-execution-time">14.2ms</span>
-                            <span class="meta-badge" id="card-row-count">5 dòng</span>
+                            <span class="meta-badge" id="card-execution-time">6ms</span>
+                            <span class="meta-badge" id="card-row-count">6 kết quả</span>
                         </div>
                         <div style="display: flex; gap: 8px;">
                             <button class="btn btn-default btn-sm" id="btn-export-csv">
@@ -188,39 +188,28 @@
                         </div>
                     </div>
 
-                    <!-- AI Thinking & Pipeline Steps -->
-                    <div class="thinking-box">
-                        <div class="thinking-title">
-                            <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
-                            <span>AI Pipeline & Giải Thích Logic (XAI)</span>
-                        </div>
-                        <div class="thinking-steps" id="thinking-steps-container">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- View Switcher Tabs -->
+                    <!-- Clean View Switcher Tabs -->
                     <div class="view-tabs">
                         <div class="view-tab active" data-view="chart">
-                            <i data-lucide="bar-chart" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
+                            <i data-lucide="bar-chart-3" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 6px;"></i>
                             <span>Biểu Đồ Trực Quan</span>
                         </div>
                         <div class="view-tab" data-view="table">
-                            <i data-lucide="table" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
-                            <span>Bảng Dữ Liệu Chi Tiết</span>
+                            <i data-lucide="table" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 6px;"></i>
+                            <span>Bảng Số Liệu Chi Tiết</span>
                         </div>
                         <div class="view-tab" data-view="sql">
-                            <i data-lucide="code" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
-                            <span>Câu Lệnh SQL Tạo Ra</span>
+                            <i data-lucide="terminal" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 6px;"></i>
+                            <span>Câu Lệnh SQL Tự Động</span>
                         </div>
                     </div>
 
-                    <!-- Panel 1: Chart Canvas -->
+                    <!-- Panel 1: Chart Canvas (Maximum clean workspace) -->
                     <div class="viz-container" id="panel-chart">
                         <canvas id="nexus-chart-canvas"></canvas>
                     </div>
 
-                    <!-- Panel 2: Data Table -->
+                    <!-- Panel 2: Clean Data Table -->
                     <div class="table-responsive" id="panel-table" style="display: none;">
                         <table class="nexus-table" id="nexus-data-table">
                             <thead><tr id="table-head-row"></tr></thead>
@@ -228,7 +217,7 @@
                         </table>
                     </div>
 
-                    <!-- Panel 3: SQL Inspector -->
+                    <!-- Panel 3: Clean SQL Code Inspector -->
                     <div class="sql-container" id="panel-sql" style="display: none;">
                         <button class="copy-btn" id="btn-copy-code-panel">Sao chép</button>
                         <pre class="sql-code" id="sql-code-display"></pre>
@@ -244,13 +233,11 @@
             <div class="modal-header">
                 <div class="modal-title">
                     <i data-lucide="database" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px;"></i>
-                    <span>Cấu Trúc Schema Database (5 Bảng Quan Hệ)</span>
+                    <span>Cấu Trúc Schema Cơ Sở Dữ Liệu (5 Bảng Quan Hệ)</span>
                 </div>
                 <button class="modal-close" data-close-modal>&times;</button>
             </div>
-            <div class="modal-body" id="schema-modal-content">
-                <!-- Dynamically rendered -->
-            </div>
+            <div class="modal-body" id="schema-modal-content"></div>
         </div>
     </div>
 
@@ -265,7 +252,7 @@
                 <button class="modal-close" data-close-modal>&times;</button>
             </div>
             <div class="modal-body">
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Viết câu lệnh SQL trực tiếp trên cơ sở dữ liệu in-memory của hệ thống:</p>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Thực thi các câu lệnh SQL tự do trên cơ sở dữ liệu quan hệ của hệ thống:</p>
                 <textarea id="raw-sql-input" style="width: 100%; height: 120px; background: #0d0d10; border: 1px solid var(--border-light); border-radius: var(--radius-sm); color: #fff; font-family: var(--font-mono); font-size: 13px; padding: 12px; resize: vertical;" placeholder="SELECT * FROM products ORDER BY selling_price DESC LIMIT 5;">SELECT * FROM products ORDER BY selling_price DESC LIMIT 5;</textarea>
                 <div style="margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px;">
                     <button class="btn btn-default btn-sm" id="btn-sql-reset">Khôi phục mẫu</button>
@@ -288,7 +275,7 @@
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
-                    Mặc định NexusBI sử dụng <strong>Semantic Rule Engine siêu tốc tích hợp sẵn</strong> (không cần internet, không mất phí). Nếu muốn mở rộng sang câu hỏi tự do, em có thể nhập Gemini API Key dưới đây:
+                    Mặc định hệ thống sử dụng <strong>Semantic NLP Engine siêu tốc tích hợp sẵn</strong> (không cần internet, không mất phí). Nếu muốn mở rộng sang câu hỏi tự do, em có thể nhập Gemini API Key dưới đây:
                 </p>
                 <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Google Gemini API Key (Tùy chọn)</label>
                 <input type="password" id="gemini-api-key-input" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #fff; padding: 10px; font-size: 13px;" placeholder="AIzaSy...">

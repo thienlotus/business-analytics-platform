@@ -1,11 +1,11 @@
 /**
- * NexusBI - Core Application Controller
+ * Business Analytics - Core Application Controller
  * Handles UI interactions, Chart.js lifecycle, Exporting, Modals & State
  * Author: Le Vu Thien (thienlotus)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize Icons
+    // 1. Initialize Lucide Icons
     if (window.lucide) {
         lucide.createIcons();
     }
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartTitle = document.getElementById('card-chart-title');
     const badgeExecTime = document.getElementById('card-execution-time');
     const badgeRowCount = document.getElementById('card-row-count');
-    const thinkingContainer = document.getElementById('thinking-steps-container');
     const sqlCodeDisplay = document.getElementById('sql-code-display');
     const chartCanvas = document.getElementById('nexus-chart-canvas');
     const tableHeadRow = document.getElementById('table-head-row');
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Visual feedback
         btnRunQuery.disabled = true;
-        btnRunQuery.innerHTML = '<span>Đang phân tích...</span>';
+        btnRunQuery.innerHTML = '<span>Đang truy vấn...</span>';
 
         try {
             // Step 1: Text-to-SQL translation
@@ -73,18 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (badgeExecTime) badgeExecTime.textContent = `${dbResult.executionTimeMs}ms`;
             if (badgeRowCount) badgeRowCount.textContent = `${dbResult.rowCount} kết quả`;
 
-            // Step 4: Render AI Thinking Pipeline
-            renderThinkingSteps(plan.thinkingSteps, plan.explanation);
-
-            // Step 5: Render SQL Inspector Code
+            // Step 4: Render SQL Inspector Code
             if (sqlCodeDisplay) {
                 sqlCodeDisplay.textContent = plan.sql;
             }
 
-            // Step 6: Render Table Data
+            // Step 5: Render Table Data
             renderDataTable(dbResult.columns, dbResult.rows);
 
-            // Step 7: Render Visual Chart
+            // Step 6: Render Visual Chart
             renderChart(plan.chartType, dbResult.rows, plan.chartConfig);
 
         } catch (error) {
@@ -96,34 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 6. Render Thinking Steps
-    function renderThinkingSteps(steps = [], explanation = '') {
-        if (!thinkingContainer) return;
-
-        let html = '';
-        steps.forEach(s => {
-            html += `
-                <div class="step-item">
-                    <div class="step-label">${s.step}</div>
-                    <div class="step-desc">${s.detail}</div>
-                </div>
-            `;
-        });
-
-        // Add summary explanation
-        if (explanation) {
-            html += `
-                <div class="step-item" style="grid-column: span 4; background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.25);">
-                    <div class="step-label" style="color: var(--accent-indigo);">Giải thích nghiệp vụ (Explainable AI)</div>
-                    <div class="step-desc" style="color: var(--text-primary); font-size: 12px;">${explanation}</div>
-                </div>
-            `;
-        }
-
-        thinkingContainer.innerHTML = html;
-    }
-
-    // 7. Render Data Table
+    // 6. Render Data Table
     function renderDataTable(columns = [], rows = []) {
         if (!tableHeadRow || !tableBodyRows) return;
 
@@ -146,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    // 8. Render Chart using Chart.js
+    // 7. Render Chart using Chart.js
     function renderChart(chartType, rows = [], config = {}) {
         if (!chartCanvas) return;
 
@@ -177,11 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (chartType === 'line') {
             dataset.borderColor = '#6366f1';
-            dataset.backgroundColor = 'rgba(99, 102, 241, 0.1)';
+            dataset.backgroundColor = 'rgba(99, 102, 241, 0.12)';
             dataset.fill = true;
             dataset.tension = 0.35;
             dataset.pointBackgroundColor = '#6366f1';
             dataset.pointRadius = 4;
+            dataset.pointHoverRadius = 6;
         } else if (chartType === 'doughnut') {
             dataset.backgroundColor = colorPalette.slice(0, rows.length);
             dataset.borderColor = '#18181b';
@@ -203,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 maintainAspectRatio: false,
                 animation: {
-                    duration: 600,
+                    duration: 500,
                     easing: 'easeOutQuart'
                 },
                 plugins: {
@@ -261,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 9. Tab Switcher (Chart / Table / SQL)
+    // 8. Tab Switcher (Chart / Table / SQL)
     const tabs = document.querySelectorAll('.view-tab');
     const panelChart = document.getElementById('panel-chart');
     const panelTable = document.getElementById('panel-table');
@@ -289,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 10. Quick Pills Click
+    // 9. Quick Pills Click
     document.querySelectorAll('.quick-pill').forEach(pill => {
         pill.addEventListener('click', () => {
             const query = pill.getAttribute('data-query');
@@ -298,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 11. Sidebar Navigation Click
+    // 10. Sidebar Navigation Click
     document.querySelectorAll('[data-action="quick-query"]').forEach(item => {
         item.addEventListener('click', () => {
             document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
@@ -309,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 12. Run Query on Enter or Click
+    // 11. Run Query on Enter or Click
     if (btnRunQuery) {
         btnRunQuery.addEventListener('click', () => {
             executeNaturalLanguageQuery(inputNL.value);
@@ -325,8 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 13. Export to CSV
-    document.getElementById('btn-export-csv')?.addEventListener('click', () => {
+    // 12. Export to CSV Helper
+    function triggerCSVExport() {
         if (!currentQueryResult || !currentQueryResult.rows.length) {
             alert('Chưa có dữ liệu để xuất CSV');
             return;
@@ -345,12 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `nexus_bi_export_${Date.now()}.csv`;
+        a.download = `analytics_export_${Date.now()}.csv`;
         a.click();
         URL.revokeObjectURL(url);
-    });
+    }
 
-    // 14. Copy SQL
+    document.getElementById('btn-export-csv')?.addEventListener('click', triggerCSVExport);
+    document.getElementById('btn-export-csv-top')?.addEventListener('click', triggerCSVExport);
+
+    // 13. Copy SQL Helper
     function copyActiveSQL() {
         if (!currentActiveSQL) return;
         navigator.clipboard.writeText(currentActiveSQL);
@@ -359,16 +332,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-copy-sql')?.addEventListener('click', copyActiveSQL);
     document.getElementById('btn-copy-code-panel')?.addEventListener('click', copyActiveSQL);
 
-    // 15. Schema Modal Render
+    // 14. Schema Modal Render
     function renderSchemaInspector() {
         const schema = window.nexusDB.getSchemaMetadata();
-        let html = '<div style="display: flex; flex-direction: column; gap: 18px;">';
+        let html = '<div style="display: flex; flex-direction: column; gap: 16px;">';
 
         schema.forEach(table => {
             html += `
                 <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); overflow: hidden;">
                     <div style="padding: 10px 14px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-indigo); font-size: 14px;">TABLE ${table.table}</span>
+                        <span style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-indigo); font-size: 13px;">BẢNG ${table.table.toUpperCase()}</span>
                         <span style="font-size: 11px; color: var(--text-muted);">${table.description}</span>
                     </div>
                     <table class="nexus-table" style="font-size: 12px;">
@@ -397,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (schemaModalContent) schemaModalContent.innerHTML = html;
     }
 
-    // 16. Modal Event Listeners
+    // 15. Modal Event Listeners
     document.getElementById('btn-open-schema')?.addEventListener('click', () => {
         renderSchemaInspector();
         modalSchema.classList.add('open');
@@ -428,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 17. SQL Playground Execute
+    // 16. SQL Playground Execute
     document.getElementById('btn-sql-execute')?.addEventListener('click', () => {
         const rawSql = document.getElementById('raw-sql-input').value;
         const resBox = document.getElementById('playground-results');
@@ -450,6 +423,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 resBox.innerHTML = `<div style="font-size: 12px; color: var(--accent-rose);">✗ Lỗi thực thi SQL: ${err.message}</div>`;
             }
         }
+    });
+
+    // 17. Refresh KPIs Button
+    document.getElementById('btn-refresh-kpis')?.addEventListener('click', () => {
+        updateKPIRibbon();
+        alert('Đã đồng bộ và làm mới toàn bộ số liệu thời gian thực!');
     });
 
     // 18. Save Settings Key
