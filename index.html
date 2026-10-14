@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusBI - Enterprise Conversational Business Intelligence & Text-to-SQL Platform</title>
+    <meta name="description" content="Trợ lý phân tích dữ liệu kinh doanh bằng ngôn ngữ tự nhiên (Text-to-SQL) kết hợp trực quan hóa đa chiều cho doanh nghiệp.">
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for High-performance Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-badge">N</div>
+                <div>
+                    <div class="logo-text">NexusBI</div>
+                    <div class="logo-sub">Enterprise Analytics</div>
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="sidebar-section-title">Khám Phá Dữ Liệu</div>
+                <div class="sidebar-nav-item active" data-action="quick-query" data-prompt="Cho tôi xem doanh thu theo tháng và xu hướng tăng trưởng">
+                    <i data-lucide="trending-up"></i>
+                    <span>Doanh thu theo tháng</span>
+                </div>
+                <div class="sidebar-nav-item" data-action="quick-query" data-prompt="Top 5 sản phẩm bán chạy nhất đem lại doanh thu cao nhất">
+                    <i data-lucide="package"></i>
+                    <span>Top sản phẩm bán chạy</span>
+                </div>
+                <div class="sidebar-nav-item" data-action="quick-query" data-prompt="Phân bổ doanh thu theo tỉnh thành và khu vực">
+                    <i data-lucide="map-pin"></i>
+                    <span>Doanh thu theo khu vực</span>
+                </div>
+                <div class="sidebar-nav-item" data-action="quick-query" data-prompt="Phân tích chi tiêu của khách hàng theo phân hạng VIP và Loyal">
+                    <i data-lucide="users"></i>
+                    <span>Phân hạng khách hàng (CLV)</span>
+                </div>
+                <div class="sidebar-nav-item" data-action="quick-query" data-prompt="Tỷ trọng các phương thức thanh toán VNPay, Thẻ, COD">
+                    <i data-lucide="credit-card"></i>
+                    <span>Phương thức thanh toán</span>
+                </div>
+                <div class="sidebar-nav-item" data-action="quick-query" data-prompt="Tỷ lệ đơn hàng hoàn thành, đổi trả và hủy đơn">
+                    <i data-lucide="alert-triangle"></i>
+                    <span>Tỷ lệ hoàn & hủy đơn</span>
+                </div>
+
+                <div class="sidebar-section-title">Công Cụ Kỹ Thuật</div>
+                <div class="sidebar-nav-item" id="btn-open-schema">
+                    <i data-lucide="database"></i>
+                    <span>Khảo sát Schema Database</span>
+                </div>
+                <div class="sidebar-nav-item" id="btn-open-sql-editor">
+                    <i data-lucide="terminal"></i>
+                    <span>SQL Query Playground</span>
+                </div>
+                <div class="sidebar-nav-item" id="btn-open-settings">
+                    <i data-lucide="settings"></i>
+                    <span>Cấu hình AI & API Keys</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="db-status-badge">
+                    <span class="status-dot"></span>
+                    <span>SQLite In-Memory Connected (5 tables)</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-wrapper">
+            <!-- Top Navigation Bar -->
+            <header class="top-navbar">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-weight: 600; font-size: 14px; color: #fff;">Bảng Điều Khiển Kinh Doanh 2026</span>
+                    <span class="meta-badge">v2.4 Enterprise</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn btn-default btn-sm" id="btn-refresh-kpis">
+                        <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i>
+                        <span>Làm mới dữ liệu</span>
+                    </button>
+                    <button class="btn btn-primary btn-sm" id="btn-export-full-report">
+                        <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                        <span>Xuất Báo Cáo</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Workspace Content -->
+            <div class="workspace-scrollable">
+                <!-- High-level KPI Ribbon -->
+                <section class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">
+                            <span>TỔNG DOANH THU THỰC THU</span>
+                            <i data-lucide="dollar-sign" style="width: 16px; height: 16px; color: var(--accent-emerald);"></i>
+                        </div>
+                        <div class="kpi-value" id="kpi-revenue">308.2M ₫</div>
+                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +18.4% so với quý trước</span>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">
+                            <span>TỔNG SỐ ĐƠN PHÁT SINH</span>
+                            <i data-lucide="shopping-cart" style="width: 16px; height: 16px; color: var(--accent-indigo);"></i>
+                        </div>
+                        <div class="kpi-value" id="kpi-orders">15 đơn</div>
+                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +12.0% tỷ lệ chuyển đổi</span>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">
+                            <span>GIÁ TRỊ ĐƠN TRUNG BÌNH (AOV)</span>
+                            <i data-lucide="bar-chart-2" style="width: 16px; height: 16px; color: var(--accent-cyan);"></i>
+                        </div>
+                        <div class="kpi-value" id="kpi-aov">25.6M ₫</div>
+                        <span class="kpi-badge positive"><i data-lucide="arrow-up-right" style="width: 12px; height: 12px;"></i> +5.8% phân khúc cao cấp</span>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">
+                            <span>TỶ LỆ HOÀN & HỦY ĐƠN</span>
+                            <i data-lucide="shield-alert" style="width: 16px; height: 16px; color: var(--accent-amber);"></i>
+                        </div>
+                        <div class="kpi-value" id="kpi-return">13.3%</div>
+                        <span class="kpi-badge neutral">Trong ngưỡng an toàn (< 15%)</span>
+                    </div>
+                </section>
+
+                <!-- Natural Language Command Input Bar -->
+                <section>
+                    <div class="command-container">
+                        <div class="command-icon">
+                            <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                        </div>
+                        <input type="text" id="nl-query-input" class="command-input" placeholder="Nhập câu hỏi phân tích bằng tiếng Việt tự nhiên... (ví dụ: 'Cho tôi xem top sản phẩm bán chạy nhất')" autocomplete="off">
+                        <span class="command-shortcut">Enter ↵</span>
+                        <button class="btn btn-primary" id="btn-run-query">
+                            <span>Phân Tích</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Quick Query Suggestion Pills -->
+                <section class="quick-pills">
+                    <span style="font-size: 12px; color: var(--text-muted); align-self: center; margin-right: 4px;">Gợi ý câu hỏi:</span>
+                    <button class="quick-pill" data-query="Cho tôi xem doanh thu theo tháng">📈 Doanh thu theo tháng</button>
+                    <button class="quick-pill" data-query="Top 5 sản phẩm bán chạy nhất">🏆 Top sản phẩm bán chạy</button>
+                    <button class="quick-pill" data-query="Phân bổ doanh thu theo tỉnh thành và khu vực">🗺️ Doanh thu theo vùng miền</button>
+                    <button class="quick-pill" data-query="Phân tích chi tiêu của khách hàng theo phân hạng VIP">👥 Phân hạng khách hàng VIP</button>
+                    <button class="quick-pill" data-query="Tỷ trọng các phương thức thanh toán">💳 Phương thức thanh toán</button>
+                    <button class="quick-pill" data-query="Tỷ lệ đơn hàng hoàn thành và đổi trả">📦 Tỷ lệ đổi trả đơn hàng</button>
+                </section>
+
+                <!-- Dynamic Query Result Card -->
+                <section class="result-card" id="query-result-card">
+                    <div class="result-header">
+                        <div class="result-title-group">
+                            <span id="card-chart-title" class="result-query-text">Doanh Thu Theo Tháng & Xu Hướng Tăng Trưởng</span>
+                            <span class="meta-badge" id="card-execution-time">14.2ms</span>
+                            <span class="meta-badge" id="card-row-count">5 dòng</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-default btn-sm" id="btn-export-csv">
+                                <i data-lucide="file-spreadsheet" style="width: 13px; height: 13px;"></i>
+                                <span>Xuất CSV</span>
+                            </button>
+                            <button class="btn btn-default btn-sm" id="btn-copy-sql">
+                                <i data-lucide="copy" style="width: 13px; height: 13px;"></i>
+                                <span>Sao chép SQL</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI Thinking & Pipeline Steps -->
+                    <div class="thinking-box">
+                        <div class="thinking-title">
+                            <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+                            <span>AI Pipeline & Giải Thích Logic (XAI)</span>
+                        </div>
+                        <div class="thinking-steps" id="thinking-steps-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- View Switcher Tabs -->
+                    <div class="view-tabs">
+                        <div class="view-tab active" data-view="chart">
+                            <i data-lucide="bar-chart" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
+                            <span>Biểu Đồ Trực Quan</span>
+                        </div>
+                        <div class="view-tab" data-view="table">
+                            <i data-lucide="table" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
+                            <span>Bảng Dữ Liệu Chi Tiết</span>
+                        </div>
+                        <div class="view-tab" data-view="sql">
+                            <i data-lucide="code" style="width: 13px; height: 13px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>
+                            <span>Câu Lệnh SQL Tạo Ra</span>
+                        </div>
+                    </div>
+
+                    <!-- Panel 1: Chart Canvas -->
+                    <div class="viz-container" id="panel-chart">
+                        <canvas id="nexus-chart-canvas"></canvas>
+                    </div>
+
+                    <!-- Panel 2: Data Table -->
+                    <div class="table-responsive" id="panel-table" style="display: none;">
+                        <table class="nexus-table" id="nexus-data-table">
+                            <thead><tr id="table-head-row"></tr></thead>
+                            <tbody id="table-body-rows"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Panel 3: SQL Inspector -->
+                    <div class="sql-container" id="panel-sql" style="display: none;">
+                        <button class="copy-btn" id="btn-copy-code-panel">Sao chép</button>
+                        <pre class="sql-code" id="sql-code-display"></pre>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Database Schema Inspector -->
+    <div class="modal-overlay" id="modal-schema">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="database" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px;"></i>
+                    <span>Cấu Trúc Schema Database (5 Bảng Quan Hệ)</span>
+                </div>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body" id="schema-modal-content">
+                <!-- Dynamically rendered -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Direct SQL Query Playground -->
+    <div class="modal-overlay" id="modal-sql-playground">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="terminal" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px;"></i>
+                    <span>Trình Thực Thi SQL Trực Tiếp (SQL Playground)</span>
+                </div>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Viết câu lệnh SQL trực tiếp trên cơ sở dữ liệu in-memory của hệ thống:</p>
+                <textarea id="raw-sql-input" style="width: 100%; height: 120px; background: #0d0d10; border: 1px solid var(--border-light); border-radius: var(--radius-sm); color: #fff; font-family: var(--font-mono); font-size: 13px; padding: 12px; resize: vertical;" placeholder="SELECT * FROM products ORDER BY selling_price DESC LIMIT 5;">SELECT * FROM products ORDER BY selling_price DESC LIMIT 5;</textarea>
+                <div style="margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px;">
+                    <button class="btn btn-default btn-sm" id="btn-sql-reset">Khôi phục mẫu</button>
+                    <button class="btn btn-primary btn-sm" id="btn-sql-execute">Chạy truy vấn</button>
+                </div>
+                <div id="playground-results" style="margin-top: 16px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: API Settings -->
+    <div class="modal-overlay" id="modal-settings">
+        <div class="modal-box" style="width: 500px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i data-lucide="settings" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px;"></i>
+                    <span>Cấu Hình Tùy Chọn LLM API</span>
+                </div>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+                    Mặc định NexusBI sử dụng <strong>Semantic Rule Engine siêu tốc tích hợp sẵn</strong> (không cần internet, không mất phí). Nếu muốn mở rộng sang câu hỏi tự do, em có thể nhập Gemini API Key dưới đây:
+                </p>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Google Gemini API Key (Tùy chọn)</label>
+                <input type="password" id="gemini-api-key-input" style="width: 100%; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); color: #fff; padding: 10px; font-size: 13px;" placeholder="AIzaSy...">
+                <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 10px;">
+                    <button class="btn btn-default btn-sm" data-close-modal>Đóng</button>
+                    <button class="btn btn-primary btn-sm" id="btn-save-api-key">Lưu cấu hình</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic Scripts -->
+    <script src="js/database.js"></script>
+    <script src="js/text_to_sql.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
